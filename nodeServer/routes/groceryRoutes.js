@@ -12,7 +12,7 @@ Delete items (optional, for admin use).
  const router = express.Router()
 
 // endpoint to get all grocery items
- router.get("get/grocery/items", async(req, res, next) =>{
+ router.get("/get/grocery/items", async(req, res, next) =>{
     try{
         const groceries = await Grocery.find();
         res.json(groceries)
@@ -21,3 +21,20 @@ Delete items (optional, for admin use).
         res.status(500).json({ message: 'Error fetching groceries' });
     }
  })
+
+//  endpoint to add a  new grocery item
+router.post("/new/grocery/item", async(req, res, next)=>{
+    const {name, quantity, price, reorderLevel} = req.body
+    const newGrocery = new Grocery({name, quantity, price, reorderLevel})
+
+    try{
+        const savedGrocery = await newGrocery.save()
+        res.json(savedGrocery)
+    }
+    catch(err){
+        res.status(500).json({ message: 'Error adding grocery item' });
+    }
+})
+// installing nodecron package for a scheduling task after every 2 minutes
+
+export default router
