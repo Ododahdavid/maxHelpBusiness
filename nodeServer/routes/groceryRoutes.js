@@ -26,8 +26,11 @@ Delete items (optional, for admin use).
 router.post("/new/grocery/item", async(req, res, next)=>{
     const {name, quantity, price, reorderLevel} = req.body
     const newGrocery = new Grocery({name, quantity, price, reorderLevel})
-
     try{
+        const existingItem = await Grocery.findOne({name})
+        if(existingItem.length > 0){
+            return res.status(400).json({ message: 'Item already exists' });
+        }
         const savedGrocery = await newGrocery.save()
         res.json(savedGrocery)
     }
