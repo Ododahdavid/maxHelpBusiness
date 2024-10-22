@@ -19,7 +19,7 @@ const reduceStockForBusiness = async (businessModel) => {
       const newQuantity = Math.max(item.quantity - randomReduction, 0);
       item.quantity = newQuantity;
       await item.save();
-      console.log(`${item.name} stock reduced by ${randomReduction}. New quantity: ${newQuantity}`);
+      console.log(`${item.name || item.title} stock reduced by ${randomReduction}. New quantity: ${newQuantity}`);
     });
   } catch (err) {
     console.error('Error reducing stock for business:', err);
@@ -33,7 +33,7 @@ const scheduleStockReduction = () => {
 
     // Reduce stock for each business
     await reduceStockForBusiness(Grocery);
-    await reduceStockForBusiness(Bookshop);
+    await reduceStockForBusiness(Book);
     await reduceStockForBusiness(Restaurant);
     await reduceStockForBusiness(Water);
   });
