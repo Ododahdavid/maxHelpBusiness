@@ -29,7 +29,7 @@ router.post("/new/grocery/item", async(req, res, next)=>{
     try{
         const existingItem = await Grocery.findOne({name})
         if(existingItem.length > 0){
-            return res.status(400).json({ message: 'Item already exists' });
+            return res.status(400).json({ message: 'This item is still in stock' });
         }
         const savedGrocery = await newGrocery.save()
         res.json(savedGrocery)
