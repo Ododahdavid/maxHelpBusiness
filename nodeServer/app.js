@@ -8,6 +8,7 @@ import Grocery from "./models/groceryModel.js";
 import scheduleStockReduction from "./routes/stockScheduler.js";
 import groceryRoutes from "./routes/groceryRoutes.js"
 import bookRoutes from "./routes/bookRoutes.js"
+import waterRoutes from "./routes/waterRoutes.js"
 
 dotenv.config({ path: './config.env' });
 const app = express();
@@ -27,6 +28,7 @@ app.use(express.json());
 // app.use() routes
 app.use("/api/v1/", groceryRoutes)
 app.use("/api/v1/", bookRoutes)
+app.use("/api/v1/", waterRoutes)
 
 
 app.use('/', (req, res) => {

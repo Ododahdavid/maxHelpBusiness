@@ -28,14 +28,14 @@ const reduceStockForBusiness = async (businessModel) => {
 
 // Schedule the stock reduction task to run every 5 minutes
 const scheduleStockReduction = () => {
-  cron.schedule('*/2 * * * *', async () => {
+  cron.schedule('*/1 * * * *', async () => {
     console.log('Running stock reduction...');
 
     // Reduce stock for each business
+    await reduceStockForBusiness(water);
     await reduceStockForBusiness(Grocery);
     await reduceStockForBusiness(Book);
     await reduceStockForBusiness(Restaurant);
-    await reduceStockForBusiness(Water);
   });
 };
 
